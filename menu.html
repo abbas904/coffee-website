@@ -1,0 +1,525 @@
+<!doctype html>
+<html data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+      nav {
+        transition: transform 0.3s ease-in-out;
+      }
+      nav.scroll-down {
+        transform: translateY(-100%);
+      }
+      nav.scroll-up {
+        transform: translateY(0);
+      }
+      .menu-section {
+        padding: 4rem 2rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .menu-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .menu-section h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #f59e0b;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .menu-item {
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        transform: translateY(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .menu-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .menu-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(245, 158, 11, 0.2);
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+      .menu-item img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .menu-item:hover img {
+        transform: scale(1.05);
+      }
+      .menu-item-content {
+        padding: 2rem;
+      }
+      .menu-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #f59e0b;
+        font-weight: 600;
+      }
+      .menu-item p {
+        color: #e5e7eb;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+      .menu-item .price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #f59e0b;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .menu-item ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .menu-item li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+      .menu-item li:last-child {
+        border-bottom: none;
+      }
+      .menu-item li:hover {
+        background: rgba(245, 158, 11, 0.1);
+        transform: translateX(5px);
+      }
+      .menu-item li img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(245, 158, 11, 0.3);
+      }
+      .menu-item li span {
+        color: #e5e7eb;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+      }
+      .menu-item li:hover span {
+        color: #f59e0b;
+      }
+      @media (max-width: 768px) {
+        .menu-section {
+          padding: 3rem 1.5rem;
+        }
+        .menu-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 2rem;
+        }
+        .menu-item img {
+          height: 200px;
+        }
+        .menu-item-content {
+          padding: 1.5rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .menu-section {
+          padding: 2rem 1rem;
+        }
+        .menu-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        .menu-item img {
+          height: 180px;
+        }
+        .menu-item li {
+          padding: 0.75rem;
+        }
+        .menu-item li img {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      .order-item {
+        transition: all 0.3s ease;
+      }
+      .order-item:hover {
+        transform: translateX(5px);
+        background-color: rgba(245, 158, 11, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-950 ">
+    <div class="container min-h-screen">
+      <!-- Navbar -->
+      <nav class="fixed w-full z-50">
+        <div class="flex justify-between items-center p-4 bg-black/20 border-b border-white/15">
+          <div class="flex items-center ml-10">
+            <a href="coffe.html">
+              <img src="./img/logo/Coffee-house-logo-design-illustration-vector-removebg-preview.png" class="w-16 md:w-20 transition-transform duration-300 hover:scale-110" alt="Logo">
+            </a>
+          </div>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden ml-2">
+            <button id="mobile-menu-button" class="text-white hover:text-amber-500 focus:outline-none">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <ul class="hidden md:flex items-center space-x-6 mx-20 px-2  antialiased">
+            <li><a href="coffe.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Home</a></li>
+            <li><a href="menu.html" class="active text-amber-500" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Menu</a></li>
+            <li><a href="services.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Services</a></li>
+            <li><a href="blog.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Blog</a></li>
+            <li><a href="login.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-white/15">
+          <ul class="px-4 py-3 space-y-2">
+            <li><a href="coffe.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Home</a></li>
+            <li><a href="menu.html" class="block text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Menu</a></li>
+            <li><a href="services.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Services</a></li>
+            <li><a href="blog.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Blog</a></li>
+            <li><a href="login.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Login</a></li>
+            
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Menu Section -->
+      <section class="menu-section py-20 ">
+        <div class="container mx-auto px-4">
+          <div class="text-center mt-14">
+            <h2 class="text-5xl font-bold text-amber-500 mb-4">Our Menu</h2>
+            <div class="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto">Discover our carefully crafted selection of premium coffee, delicious pastries, and specialty drinks.</p>
+          </div>
+
+          <!-- Menu Categories -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 ">
+            <!-- Coffee Drinks Category -->
+            <div class="menu-item bg-black/50 rounded-xl overflow-hidden border border-gray-800 " >
+              <div class="relative h-96 ">
+                <div class="absolute inset-0 flex">
+                  <img src="./img/menu/menu-1.jpg" alt="Espresso" class="w-1/2 h-full object-cover transition-transform duration-500 hover:scale-110">
+                  <img src="./img/menu/menu-3.jpg" alt="Cappuccino" class="w-1/2 h-full object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 class="text-xl font-semibold text-white">Coffee Drinks</h3>
+                  <p class="text-gray-300 text-sm">Premium coffee selection</p>
+                </div>
+              </div>
+              <div class="p-6">
+                <ul class="space-y-4">
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/hot drinks/(4).jpg" alt="Espresso" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Espresso</span>
+                    </div>
+                    <span class="text-amber-500">$3.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/iced coffe/pexels-hilmiisilak-13129674.jpg" alt="Cappuccino" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Cappuccino</span>
+                    </div>
+                    <span class="text-amber-500">$4.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/iced coffe/pexels-esra-salturk-1165434438-27548806.jpg" alt="Latte" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Latte</span>
+                    </div>
+                    <span class="text-amber-500">$4.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/iced coffe/re.jpg" alt="Americano" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Americano</span>
+                    </div>
+                    <span class="text-amber-500">$3.50</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Food Category -->
+            <div class="menu-item bg-black/50 rounded-xl overflow-hidden border border-gray-800">
+              <div class="relative h-96 overflow-hidden">
+                <div class="absolute inset-0 flex">
+                  <img src="./img/products/dish-1.jpg" alt="Sandwich" class="w-1/2 h-full object-cover transition-transform duration-500 hover:scale-110">
+                  <img src="./img/products/dish-2.jpg" alt="Pasta" class="w-1/2 h-full object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 class="text-xl font-semibold text-white">Food</h3>
+                  <p class="text-gray-300 text-sm">Delicious meals</p>
+                </div>
+              </div>
+              <div class="p-6">
+                <ul class="space-y-4">
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/products/pexels-erin-wang-385309-1647163.jpg" alt="Sandwich" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Sandwich</span>
+                    </div>
+                    <span class="text-amber-500">$8.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/products/bbb.png" alt="Salad" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Salad</span>
+                    </div>
+                    <span class="text-amber-500">$7.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/products/dish-4.jpg" alt="Pasta" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">chicken</span>
+                    </div>
+                    <span class="text-amber-500">$9.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/products/dish-7.jpg" alt="Soup" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Soup</span>
+                    </div>
+                    <span class="text-amber-500">$6.50</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Desserts Category -->
+            <div class="menu-item bg-black/50 rounded-xl overflow-hidden border border-gray-800" >
+              <div class="relative h-96 overflow-hidden">
+                <div class="absolute inset-0 flex">
+                  <img src="./img/dessert img/dessert-1.jpg" alt="Cheesecake" class="w-1/2 h-full object-cover transition-transform duration-500 hover:scale-110">
+                  <img src="./img/dessert img/dessert-2.jpg" alt="Chocolate Cake" class="w-1/2 h-full object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 class="text-xl font-semibold text-white">Desserts</h3>
+                  <p class="text-gray-300 text-sm">Sweet treats</p>
+                </div>
+              </div>
+              <div class="p-6">
+                <ul class="space-y-4">
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/dessert img/dessert-3.jpg" alt="Cheesecake" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Cheesecake</span>
+                    </div>
+                    <span class="text-amber-500">$5.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/dessert img/dessert-4.jpg" alt="Chocolate Cake" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Chocolate Cake</span>
+                    </div>
+                    <span class="text-amber-500">$5.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/dessert img/6.jpg" alt="Tiramisu" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Tiramisu</span>
+                    </div>
+                    <span class="text-amber-500">$6.50</span>
+                  </li>
+                  <li class="flex justify-between items-center group">
+                    <div class="flex items-center space-x-3">
+                      <img src="./img/dessert img/7.jpg" alt="Ice Cream" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-gray-300 group-hover:text-amber-500 transition-colors">Ice Cream</span>
+                    </div>
+                    <span class="text-amber-500">$4.50</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Orders Section -->
+      <section class="py-20 bg-black/30">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16" >
+            <h2 class="text-5xl font-bold text-amber-500 mb-4">Place Your Order</h2>
+            <div class="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto">Order your favorite coffee and pastries for pickup or delivery</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <!-- Order Form -->
+            <div class="bg-black/50 rounded-xl p-8 border border-gray-800" >
+              <h3 class="text-2xl font-semibold text-white mb-6">Order Details</h3>
+              <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-gray-400 mb-2">First Name</label>
+                    <input type="text" class="w-full px-4 py-3 rounded-lg bg-black/30 border border-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30 text-white transition duration-300" placeholder="Enter your first name">
+                  </div>
+                  <div>
+                    <label class="block text-gray-400 mb-2">Last Name</label>
+                    <input type="text" class="w-full px-4 py-3 rounded-lg bg-black/30 border border-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30 text-white transition duration-300" placeholder="Enter your last name">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-gray-400 mb-2">Email</label>
+                  <input type="email" class="w-full px-4 py-3 rounded-lg bg-black/30 border border-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30 text-white transition duration-300" placeholder="Enter your email">
+                </div>
+                <div>
+                  <label class="block text-gray-400 mb-2">Phone Number</label>
+                  <input type="tel" class="w-full px-4 py-3 rounded-lg bg-black/30 border border-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30 text-white transition duration-300" placeholder="Enter your phone number">
+                </div>
+                <div>
+                  <label class="block text-gray-400 mb-2">Order Type</label>
+                  <select class="w-full px-4 py-3 rounded-lg bg-black/30 border border-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30 text-white transition duration-300">
+                    <option value="">Select order type</option>
+                    <option value="pickup">Pickup</option>
+                    <option value="delivery">Delivery</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-gray-400 mb-2">Order Items</label>
+                  <textarea class="w-full px-4 py-3 rounded-lg bg-black/30 border border-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30 text-white transition duration-300 h-32" placeholder="Enter your order items"></textarea>
+                </div>
+                <button class="w-full bg-amber-500 text-white px-6 py-3 rounded-lg hover:bg-amber-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-amber-500/30">
+                  Place Order
+                </button>
+              </form>
+            </div>
+
+            <!-- Order Image and Info -->
+            <div class="relative" >
+              <div class="relative h-full rounded-xl overflow-hidden">
+                <img src="./img/coffee-beans.jpg" alt="Order Coffee" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+                <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                  <h3 class="text-2xl font-semibold text-white mb-4">Order Information</h3>
+                  <ul class="space-y-4 text-gray-300">
+                    <li class="flex items-center space-x-3">
+                      <i class="fas fa-clock text-amber-500"></i>
+                      <span>Order Time: 8:00 AM - 10:00 PM</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                      <i class="fas fa-truck text-amber-500"></i>
+                      <span>Delivery Time: 30-45 minutes</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                      <i class="fas fa-credit-card text-amber-500"></i>
+                      <span>Secure Payment Methods</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                      <i class="fas fa-star text-amber-500"></i>
+                      <span>Special Offers Available</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-black/50 border-t border-white/15 py-12">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center md:text-left">
+              <h3 class="text-xl font-semibold text-white mb-4">Coffee House</h3>
+              <p class="text-gray-400">Your perfect coffee experience</p>
+            </div>
+            <div class="text-center">
+              <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+              <ul class="space-y-2">
+                <li><a href="coffe.html" class="text-gray-400 hover:text-amber-500 transition-colors">Home</a></li>
+                <li><a href="menu.html" class="text-gray-400 hover:text-amber-500 transition-colors">Menu</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-amber-500 transition-colors">Orders</a></li>
+              </ul>
+            </div>
+            <div class="text-center md:text-right">
+              <h3 class="text-xl font-semibold text-white mb-4">Contact Us</h3>
+              <p class="text-gray-400">Email: info@coffeehouse.com</p>
+              <p class="text-gray-400">Phone: +1 234 567 890</p>
+            </div>
+          </div>
+          <div class="text-center mt-8 pt-8 border-t border-white/15">
+            <p class="text-gray-400">&copy; 2024 Coffee House. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+      <!-- Scroll Buttons -->
+      <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+        <button id="scrollToTop" class="w-12 h-12 rounded-full bg-amber-500/80 hover:bg-amber-500 text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-amber-500/30 opacity-0 invisible">
+          <i class="fas fa-arrow-up text-xl"></i>
+        </button>
+        <button id="scrollToBottom" class="w-12 h-12 rounded-full bg-amber-500/80 hover:bg-amber-500 text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:shadow-amber-500/30 opacity-0 invisible">
+          <i class="fas fa-arrow-down text-xl"></i>
+        </button>
+      </div>
+      <!-- Scroll Buttons end -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('.menu-section');
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        // Function to check if element is in viewport
+        function isInViewport(element) {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8
+          );
+        }
+        
+        // Function to handle scroll animations
+        function handleScroll() {
+          sections.forEach(section => {
+            if (isInViewport(section)) {
+              section.classList.add('visible');
+              
+              // Animate menu items with a delay
+              const items = section.querySelectorAll('.menu-item');
+              items.forEach((item, index) => {
+                setTimeout(() => {
+                  item.classList.add('visible');
+                }, index * 100);
+              });
+            }
+          });
+        }
+        
+        // Initial check
+        handleScroll();
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+      });
+    </script>
+    <script src="./menu.js"></script>
+  </body>
+</html> 
