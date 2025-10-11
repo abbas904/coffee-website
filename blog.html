@@ -1,0 +1,351 @@
+<!doctype html>
+<html data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+      nav {
+        transition: transform 0.3s ease-in-out;
+      }
+      nav.scroll-down {
+        transform: translateY(-100%);
+      }
+      nav.scroll-up {
+        transform: translateY(0);
+      }
+      .blog-section {
+        padding-top: 80px;
+      }
+      .blog-card {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(245, 158, 11, 0.3);
+      }
+      .blog-image {
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .blog-card:hover .blog-image {
+        transform: scale(1.1);
+      }
+
+      /* Testimonials Animations */
+      @keyframes pulse-slow {
+        0%, 100% {
+          opacity: 0.2;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.3;
+          transform: scale(1.1);
+        }
+      }
+      .animate-pulse-slow {
+        animation: pulse-slow 4s ease-in-out infinite;
+      }
+      .testimonial-card {
+        position: relative;
+        overflow: hidden;
+      }
+      .testimonial-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+      }
+      .testimonial-card:hover::before {
+        transform: translateX(100%);
+      }
+      .testimonial-card:hover {
+        box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+      }
+      .testimonial-card img {
+        transition: transform 0.3s ease, border-color 0.3s ease;
+      }
+      .testimonial-card:hover img {
+        transform: scale(1.1);
+        border-color: #f59e0b;
+      }
+      .testimonial-nav {
+        transition: all 0.3s ease;
+      }
+      .testimonial-nav:hover {
+        transform: scale(1.2);
+      }
+      .testimonial-nav.active {
+        background-color: #f59e0b;
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-950">
+    <div class="container min-h-screen">
+      <!-- Navbar -->
+      <nav class="fixed w-full z-50">
+        <div class="flex justify-between items-center p-4 bg-black/20 border-b border-white/15">
+          <div class="flex items-center ml-10">
+            <a href="coffe.html">
+              <img src="./img/logo/Coffee-house-logo-design-illustration-vector-removebg-preview.png" class="w-16 md:w-20 transition-transform duration-300 hover:scale-110" alt="Logo">
+            </a>
+          </div>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden ml-2">
+            <button id="mobile-menu-button" class="text-white hover:text-amber-500 focus:outline-none">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <ul class="hidden md:flex items-center space-x-6 mx-20 px-2 font-mono antialiased">
+            <li><a href="coffe.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Home</a></li>
+            <li><a href="menu.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Menu</a></li>
+            <li><a href="services.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Services</a></li>
+            <li><a href="blog.html" class="text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Blog</a></li>
+            <li><a href="login.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-white/15">
+          <ul class="px-4 py-3 space-y-2">
+            <li><a href="coffe.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Home</a></li>
+            <li><a href="menu.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Menu</a></li>
+            <li><a href="services.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Services</a></li>
+            <li><a href="blog.html" class="block text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Blog</a></li>
+            <li><a href="login.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Login</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Blog Section -->
+      <section class="blog-section py-20">
+        <div class="container mx-auto px-4">
+          <div class="text-center mt-14" data-aos="fade-down">
+            <h2 class="text-5xl font-bold text-amber-500 mb-4">Our Blog</h2>
+            <div class="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto">Discover the latest news, tips, and stories about coffee and our cafe.</p>
+          </div>
+
+          <!-- Blog Posts -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+            <!-- Blog Post 1 -->
+            <div class="blog-card bg-black/50 rounded-xl overflow-hidden border border-gray-800" data-aos="fade-up">
+              <div class="relative h-64 overflow-hidden">
+                <img src="./img/people's experience/coffee-5016043_1280.jpg" alt="Coffee Brewing Tips" class="blog-image w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+                <div class="absolute top-4 left-4">
+                  <span class="bg-amber-500 text-white px-3 py-1 rounded-full text-sm">Coffee Tips</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center text-gray-400 text-sm mb-4">
+                  <i class="far fa-calendar-alt mr-2"></i>
+                  <span>March 15, 2024</span>
+                  <span class="mx-2">•</span>
+                  <i class="far fa-user mr-2"></i>
+                  <span>John Doe</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-3">The Art of Perfect Coffee Brewing</h3>
+                <p class="text-gray-400 mb-4">Learn the secrets to brewing the perfect cup of coffee at home with our expert tips and techniques.</p>
+                <a href="#" class="text-amber-500 hover:text-amber-400 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div class="blog-card bg-black/50 rounded-xl overflow-hidden border border-gray-800" data-aos="fade-up" data-aos-delay="100">
+              <div class="relative h-64 overflow-hidden">
+                <img src="./img/people's experience/coffee-beans.jpg" alt="Coffee Beans" class="blog-image w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+                <div class="absolute top-4 left-4">
+                  <span class="bg-amber-500 text-white px-3 py-1 rounded-full text-sm">Coffee Beans</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center text-gray-400 text-sm mb-4">
+                  <i class="far fa-calendar-alt mr-2"></i>
+                  <span>March 10, 2024</span>
+                  <span class="mx-2">•</span>
+                  <i class="far fa-user mr-2"></i>
+                  <span>Jane Smith</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-3">Exploring Different Coffee Bean Types</h3>
+                <p class="text-gray-400 mb-4">Discover the unique characteristics of various coffee bean types and how they affect your brew.</p>
+                <a href="#" class="text-amber-500 hover:text-amber-400 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="blog-card bg-black/50 rounded-xl overflow-hidden border border-gray-800" data-aos="fade-up" data-aos-delay="200">
+              <div class="relative h-64 overflow-hidden">
+                <img src="./img/people's experience/pexels-thisismasud-29829877.jpg" alt="Cafe Culture" class="blog-image w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+                <div class="absolute top-4 left-4">
+                  <span class="bg-amber-500 text-white px-3 py-1 rounded-full text-sm">Cafe Culture</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center text-gray-400 text-sm mb-4">
+                  <i class="far fa-calendar-alt mr-2"></i>
+                  <span>March 5, 2024</span>
+                  <span class="mx-2">•</span>
+                  <i class="far fa-user mr-2"></i>
+                  <span>Mike Johnson</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-3">The Rise of Specialty Coffee Shops</h3>
+                <p class="text-gray-400 mb-4">Explore how specialty coffee shops are changing the way we experience coffee culture.</p>
+                <a href="#" class="text-amber-500 hover:text-amber-400 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Load More Button -->
+          <div class="text-center mt-12" data-aos="fade-up">
+            <button class="bg-amber-500 text-white px-8 py-3 rounded-lg hover:bg-amber-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-amber-500/30">
+              Load More Posts
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="testimonials py-20 bg-black/30 relative overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute inset-0 opacity-20">
+          <div class="absolute top-0 left-0 w-96 h-96 bg-amber-500 rounded-full filter blur-[100px] transform -translate-x-1/2 -translate-y-1/2 animate-pulse-slow"></div>
+          <div class="absolute bottom-0 right-0 w-96 h-96 bg-amber-500 rounded-full filter blur-[100px] transform translate-x-1/2 translate-y-1/2 animate-pulse-slow"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="text-center mb-16" data-aos="fade-down">
+            <h2 class="text-5xl font-bold text-amber-500 mb-4">Customer Reviews</h2>
+            <div class="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto">What our customers say about their experience with us</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card bg-black/50 rounded-xl p-8 border border-gray-800 hover:border-amber-500/30 transition-all duration-500 transform hover:-translate-y-2" data-aos="fade-up">
+              <div class="flex items-center mb-6">
+                <img src="./img/people's experience/ttestmonial-1.jpg" alt="Customer" class="w-16 h-16 rounded-full object-cover border-2 border-amber-500">
+                <div class="ml-4">
+                  <h4 class="text-xl font-semibold text-white">Sarah Johnson</h4>
+                  <div class="flex text-amber-500">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-300 mb-6">"The coffee here is absolutely amazing! The atmosphere is cozy and the staff is very friendly. I come here every morning before work."</p>
+              <div class="flex items-center text-amber-500">
+                <i class="fas fa-quote-left text-2xl mr-2"></i>
+                <span class="text-sm">Verified Customer</span>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card bg-black/50 rounded-xl p-8 border border-gray-800 hover:border-amber-500/30 transition-all duration-500 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+              <div class="flex items-center mb-6">
+                <img src="./img/people's experience/testmonial-3.jpg" alt="Customer" class="w-16 h-16 rounded-full object-cover border-2 border-amber-500">
+                <div class="ml-4">
+                  <h4 class="text-xl font-semibold text-white">Michael Chen</h4>
+                  <div class="flex text-amber-500">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-300 mb-6">"I love the variety of coffee options available. The baristas are knowledgeable and always make perfect recommendations. A great place to work or relax."</p>
+              <div class="flex items-center text-amber-500">
+                <i class="fas fa-quote-left text-2xl mr-2"></i>
+                <span class="text-sm">Regular Customer</span>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card bg-black/50 rounded-xl p-8 border border-gray-800 hover:border-amber-500/30 transition-all duration-500 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+              <div class="flex items-center mb-6">
+                <img src="./img/people's experience/testmonial-2.jpg" alt="Customer" class="w-16 h-16 rounded-full object-cover border-2 border-amber-500">
+                <div class="ml-4">
+                  <h4 class="text-xl font-semibold text-white">Emily Rodriguez</h4>
+                  <div class="flex text-amber-500">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-300 mb-6">"The pastries are to die for! Combined with their signature coffee, it's the perfect breakfast. The service is always excellent and the place has a great vibe."</p>
+              <div class="flex items-center text-amber-500">
+                <i class="fas fa-quote-left text-2xl mr-2"></i>
+                <span class="text-sm">Food Blogger</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial Navigation -->
+          <div class="flex justify-center mt-12 space-x-4">
+            <button class="testimonial-nav w-3 h-3 rounded-full bg-amber-500/50 hover:bg-amber-500 transition-all duration-300"></button>
+            <button class="testimonial-nav w-3 h-3 rounded-full bg-amber-500/50 hover:bg-amber-500 transition-all duration-300"></button>
+            <button class="testimonial-nav w-3 h-3 rounded-full bg-amber-500/50 hover:bg-amber-500 transition-all duration-300"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-black/50 border-t border-white/15 py-12">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center md:text-left">
+              <h3 class="text-xl font-semibold text-white mb-4">Coffee House</h3>
+              <p class="text-gray-400">Your perfect coffee experience</p>
+            </div>
+            <div class="text-center">
+              <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+              <ul class="space-y-2">
+                <li><a href="coffe.html" class="text-gray-400 hover:text-amber-500 transition-colors">Home</a></li>
+                <li><a href="menu.html" class="text-gray-400 hover:text-amber-500 transition-colors">Menu</a></li>
+                <li><a href="blog.html" class="text-gray-400 hover:text-amber-500 transition-colors">Blog</a></li>
+              </ul>
+            </div>
+            <div class="text-center md:text-right">
+              <h3 class="text-xl font-semibold text-white mb-4">Contact Us</h3>
+              <p class="text-gray-400">Email: info@coffeehouse.com</p>
+              <p class="text-gray-400">Phone: +1 234 567 890</p>
+            </div>
+          </div>
+          <div class="text-center mt-8 pt-8 border-t border-white/15">
+            <p class="text-gray-400">&copy; 2024 Coffee House. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100
+      });
+    </script>
+    <script src="./blog.js"></script>
+  </body>
+</html> 

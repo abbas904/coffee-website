@@ -1,0 +1,181 @@
+<!doctype html>
+<html data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+      nav {
+        transition: transform 0.3s ease-in-out;
+      }
+      nav.scroll-down {
+        transform: translateY(-100%);
+      }
+      nav.scroll-up {
+        transform: translateY(0);
+      }
+      .service-card {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(245, 158, 11, 0.3);
+      }
+      .service-card:hover .service-icon {
+        transform: rotate(360deg) scale(1.2);
+        color: #f59e0b;
+      }
+      .service-icon {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-950">
+    <div class="container min-h-screen">
+      <!-- Navbar -->
+      <nav class="fixed w-full z-50">
+        <div class="flex justify-between items-center p-4 bg-black/20 border-b border-white/15">
+          <div class="flex items-center ml-10">
+            <a href="coffe.html">
+              <img src="./img/logo/Coffee-house-logo-design-illustration-vector-removebg-preview.png" class="w-16 md:w-20 transition-transform duration-300 hover:scale-110" alt="Logo">
+            </a>
+          </div>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden ml-2">
+            <button id="mobile-menu-button" class="text-white hover:text-amber-500 focus:outline-none">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <ul class="hidden md:flex items-center space-x-6 mx-20 px-2 font-mono antialiased">
+            <li><a href="coffe.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Home</a></li>
+            <li><a href="menu.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Menu</a></li>
+            <li><a href="services.html" class="text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Services</a></li>
+            <li><a href="blog.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Blog</a></li>
+            <li><a href="login.html" class="text-white hover:text-amber-500 hover:bg-black/50 px-4 py-2 rounded-md transition-all duration-300 text-lg">Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-b border-white/15">
+          <ul class="px-4 py-3 space-y-2">
+            <li><a href="coffe.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Home</a></li>
+            <li><a href="menu.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Menu</a></li>
+            <li><a href="services.html" class="block text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Services</a></li>
+            <li><a href="login.html" class="block text-white hover:text-amber-500 hover:bg-black/50 px-4 py-3 rounded-md transition-all duration-300">Login</a></li>
+            
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Services Section -->
+      <section class="pt-32 pb-20">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16" data-aos="fade-down">
+            <h2 class="text-5xl font-bold text-amber-500 mb-4">Our Services</h2>
+            <div class="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto">Experience our premium services designed to enhance your coffee journey</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Fast Delivery Service -->
+            <div class="service-card bg-black/50 rounded-xl p-8 border border-gray-800" data-aos="fade-up">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-truck-fast service-icon text-3xl text-amber-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-4 text-center">Fast Delivery</h3>
+              <p class="text-gray-400 text-center">Experience lightning-fast delivery service that brings your favorite coffee right to your doorstep.</p>
+            </div>
+
+            <!-- Quality Coffee Service -->
+            <div class="service-card bg-black/50 rounded-xl p-8 border border-gray-800" data-aos="fade-up" data-aos-delay="100">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-mug-hot service-icon text-3xl text-amber-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-4 text-center">Quality Coffee</h3>
+              <p class="text-gray-400 text-center">Savor the finest quality coffee made from premium beans sourced from the best coffee regions.</p>
+            </div>
+
+            <!-- Easy Ordering Service -->
+            <div class="service-card bg-black/50 rounded-xl p-8 border border-gray-800" data-aos="fade-up" data-aos-delay="200">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-bag-shopping service-icon text-3xl text-amber-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-4 text-center">Easy Ordering</h3>
+              <p class="text-gray-400 text-center">Simple and convenient ordering process that makes getting your favorite coffee a breeze.</p>
+            </div>
+
+            <!-- Custom Orders Service -->
+            <div class="service-card bg-black/50 rounded-xl p-8 border border-gray-800" data-aos="fade-up" data-aos-delay="300">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-gear service-icon text-3xl text-amber-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-4 text-center">Custom Orders</h3>
+              <p class="text-gray-400 text-center">Create your perfect coffee with our customizable options and special requests.</p>
+            </div>
+
+            <!-- Catering Service -->
+            <div class="service-card bg-black/50 rounded-xl p-8 border border-gray-800" data-aos="fade-up" data-aos-delay="400">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-utensils service-icon text-3xl text-amber-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-4 text-center">Catering</h3>
+              <p class="text-gray-400 text-center">Professional catering services for your events with our premium coffee selection.</p>
+            </div>
+
+            <!-- Training Service -->
+            <div class="service-card bg-black/50 rounded-xl p-8 border border-gray-800" data-aos="fade-up" data-aos-delay="500">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-graduation-cap service-icon text-3xl text-amber-500"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-4 text-center">Barista Training</h3>
+              <p class="text-gray-400 text-center">Learn the art of coffee making with our professional barista training programs.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-black/50 border-t border-white/15 py-12">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center md:text-left">
+              <h3 class="text-xl font-semibold text-white mb-4">Coffee House</h3>
+              <p class="text-gray-400">Your perfect coffee experience</p>
+            </div>
+            <div class="text-center">
+              <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+              <ul class="space-y-2">
+                <li><a href="coffe.html" class="text-gray-400 hover:text-amber-500 transition-colors">Home</a></li>
+                <li><a href="menu.html" class="text-gray-400 hover:text-amber-500 transition-colors">Menu</a></li>
+                <li><a href="services.html" class="text-gray-400 hover:text-amber-500 transition-colors">Services</a></li>
+              </ul>
+            </div>
+            <div class="text-center md:text-right">
+              <h3 class="text-xl font-semibold text-white mb-4">Contact Us</h3>
+              <p class="text-gray-400">Email: info@coffeehouse.com</p>
+              <p class="text-gray-400">Phone: +1 234 567 890</p>
+            </div>
+          </div>
+          <div class="text-center mt-8 pt-8 border-t border-white/15">
+            <p class="text-gray-400">&copy; 2024 Coffee House. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100
+      });
+    </script>
+    <script src="./services.js"></script>
+  </body>
+</html> 
