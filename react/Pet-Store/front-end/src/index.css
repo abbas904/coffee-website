@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    /* صورة الخلفية */
+    background-image: url('../puplic/bg.jpg');
+
+    /* تغطية كل الصفحة */
+    background-size: cover;
+
+    /* الصورة في المنتصف */
+    background-position: center;
+
+    /* منع تكرار الصورة */
+    background-repeat: no-repeat;
+
+    /* الصورة ثابتة أثناء التمرير */
+    background-attachment: fixed;
+
+    /* لون غامق خفيف لتحسين وضوح النصوص */
+    
+
+    /* التأكد من تغطية كامل الصفحة */
+    min-height: 100vh;
+
+    /* الخط الأساسي */
+    font-family: sans-serif;
+}
+
+/* Tailwind input style */
+.input-field {
+    @apply w-full p-3 rounded-lg border border-gray-300
+           bg-petInputBg text-petInputText placeholder-petPlaceholder
+           focus:outline-none focus:ring-2 focus:ring-petPrimary
+           transition;
+}
+

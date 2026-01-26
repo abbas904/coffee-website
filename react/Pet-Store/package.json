@@ -1,0 +1,48 @@
+{
+  "name": "pet-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "back-end": "nodemon back-end/index.js",
+    "front-end": "npm run dev --prefix front-end",
+    "dev": "concurrently \"npm run front-end\" \"npm run back-end\"",
+    "build": "cd front-end && npm run build",
+    "build:backend": "cd back-end && npm install",
+    "start": "node back-end/index.js",
+    "start:production": "NODE_ENV=production node back-end/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
+    "@shadcn/ui": "^0.0.4",
+    "apexcharts": "^5.3.6",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "concurrently": "^9.2.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.22.1",
+    "express-async-handler": "^1.2.0",
+    "express-formidable": "^1.2.0",
+    "framer-motion": "^12.26.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.1",
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.11",
+    "react": "^18.3.1",
+    "react-apexcharts": "^1.9.0",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.9",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
+  }
+}
